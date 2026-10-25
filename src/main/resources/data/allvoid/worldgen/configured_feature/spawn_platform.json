@@ -1,0 +1,10 @@
+{
+  "type": "allvoid:spawn_platform",
+  "config": {
+    "platform": {
+      "structure": "allvoid:spawn_platform",
+      "pos": [-4, 63, -1]
+    },
+    "spawn_relative": true
+  }
+}

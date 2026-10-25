@@ -1,0 +1,8 @@
+{
+  "feature": "allvoid:spawn_platform",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
