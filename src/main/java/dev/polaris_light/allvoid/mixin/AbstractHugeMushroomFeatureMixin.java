@@ -20,10 +20,13 @@ abstract class AbstractHugeMushroomFeatureMixin {
             FeaturePlaceContext<HugeMushroomFeatureConfiguration> context,
             CallbackInfoReturnable<Boolean> callback
     ) {
-        if (!AllVoidConfig.HUGE_MUSHROOMS_SPREAD_MYCELIUM.get() || !callback.getReturnValue()) {
+        if (!AllVoidConfig.hugeMushroomsSpreadMycelium || !callback.getReturnValue()) {
             return;
         }
         WorldGenLevel level = context.level();
+        if (!AllVoidConfig.featuresEnabled(level.getLevel().getChunkSource().getGenerator())) {
+            return;
+        }
         BlockPos origin = context.origin();
         for (int x = -2; x <= 2; x++) {
             for (int z = -2; z <= 2; z++) {

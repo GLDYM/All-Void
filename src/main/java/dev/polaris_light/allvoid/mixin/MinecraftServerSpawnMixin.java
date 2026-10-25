@@ -1,8 +1,9 @@
 package dev.polaris_light.allvoid.mixin;
 
 import dev.polaris_light.allvoid.AllVoid;
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import dev.polaris_light.allvoid.worldgen.SpawnPlatformConfiguration;
+import dev.polaris_light.allvoid.worldgen.SpawnPlatformFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -11,9 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.storage.ServerLevelData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,6 +45,7 @@ abstract class MinecraftServerSpawnMixin {
 
     @Inject(method = "loadLevel", at = @At("RETURN"))
     private void allvoid$repairExistingSpawnPlatform(CallbackInfo callback) {
+        @SuppressWarnings("resource")
         MinecraftServer server = (MinecraftServer) (Object) this;
         ServerLevel level = server.overworld();
         if (level != null) {
@@ -54,7 +56,7 @@ abstract class MinecraftServerSpawnMixin {
     private static void allvoid$ensureSpawnPlatform(ServerLevel level, ServerLevelData levelData) {
         ChunkGenerator generator = level.getChunkSource().getGenerator();
         ALLVOID_LOGGER.debug("Initial spawn hook reached at {} with generator {}", levelData.getSpawnPos(), generator.getClass().getName());
-        if (!(generator instanceof AllVoidChunkGenerator)) {
+        if (!AllVoidConfig.featuresEnabled(generator)) {
             return;
         }
 
@@ -73,13 +75,13 @@ abstract class MinecraftServerSpawnMixin {
             return;
         }
 
-        BlockPos platformOrigin = spawn.atY(0).offset(config.platform().pos());
-        BlockPos platformSpawn = platformOrigin.offset(
-                -config.platform().pos().getX(),
-                1,
-                -config.platform().pos().getZ()
-        );
-        boolean alreadyPlaced = level.getBlockState(platformOrigin).is(Blocks.GRASS_BLOCK);
+        BlockPos platformOrigin = SpawnPlatformFeature.placementOrigin(config, spawn);
+        BlockPos platformSpawn = SpawnPlatformFeature.spawnPosition(config, spawn);
+        StructureTemplate template = level.getStructureManager()
+                .get(config.platform().structure())
+                .orElse(null);
+        boolean alreadyPlaced = template != null
+                && SpawnPlatformFeature.isStructurePresent(level, template, platformOrigin);
         boolean placed = alreadyPlaced;
         if (!alreadyPlaced) {
             RandomSource random = RandomSource.create(level.getSeed() ^ spawn.asLong());

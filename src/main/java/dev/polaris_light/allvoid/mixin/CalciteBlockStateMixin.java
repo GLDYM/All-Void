@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class CalciteBlockStateMixin {
     @Inject(method = "isRandomlyTicking", at = @At("RETURN"), cancellable = true)
     private void allvoid$calciteRandomTicks(CallbackInfoReturnable<Boolean> callback) {
-        if (AllVoidConfig.spreadingCoralEnabled()
+        if (AllVoidConfig.spreadingCoral
                 && ((BlockState) (Object) this).is(Blocks.CALCITE)) {
             callback.setReturnValue(true);
         }

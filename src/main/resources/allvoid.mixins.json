@@ -19,6 +19,11 @@
     "StructurePieceMixin",
     "SinglePieceStructureMixin",
     "ScatteredFeaturePieceMixin",
-    "StructureAccessor"
+    "StructureAccessor",
+    "ServerPropertiesHandlerMixin"
+  ],
+  "client": [
+    "CreateWorldScreenMixin",
+    "WorldCreationUiStateMixin"
   ]
 }

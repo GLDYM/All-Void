@@ -1,6 +1,6 @@
 package dev.polaris_light.allvoid.mixin;
 
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -23,7 +23,7 @@ abstract class MineshaftCorridorMixin {
                                                           RandomSource random, int x, int y, int z,
                                                           ResourceKey<LootTable> lootTable,
                                                           CallbackInfoReturnable<Boolean> callback) {
-        if (!(level.getLevel().getChunkSource().getGenerator() instanceof AllVoidChunkGenerator)) return;
+        if (!AllVoidConfig.featuresEnabled(level.getLevel().getChunkSource().getGenerator())) return;
 
         StructurePiece piece = (StructurePiece) (Object) this;
         BoundingBox pieceBox = piece.getBoundingBox();

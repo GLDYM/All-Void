@@ -1,6 +1,6 @@
 package dev.polaris_light.allvoid.mixin;
 
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,7 +18,7 @@ abstract class ServerPlayerSpawnMixin {
             BlockPos spawn,
             CallbackInfoReturnable<BlockPos> callback
     ) {
-        if (level.getChunkSource().getGenerator() instanceof AllVoidChunkGenerator) {
+        if (AllVoidConfig.featuresEnabled(level)) {
             callback.setReturnValue(spawn);
         }
     }

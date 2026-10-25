@@ -76,7 +76,9 @@ public final class SmallDripleafSpreader {
     }
 
     public static void trySpread(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!AllVoidConfig.SPREADING_SMALL_DRIPLEAVES.get() || random.nextFloat() >= SPREAD_CHANCE
+        if (!AllVoidConfig.spreadingSmallDripleaves
+                || !AllVoidConfig.featuresEnabled(level)
+                || random.nextFloat() >= SPREAD_CHANCE
                 || !canSpreadFrom(state, level, pos)) {
             return;
         }

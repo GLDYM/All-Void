@@ -1,6 +1,6 @@
 package dev.polaris_light.allvoid.mixin;
 
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -24,7 +24,7 @@ abstract class BuriedTreasurePieceMixin {
                                                ChunkGenerator generator, RandomSource random,
                                                BoundingBox writableArea, ChunkPos chunkPos,
                                                BlockPos pivot, CallbackInfo callback) {
-        if (!(generator instanceof AllVoidChunkGenerator)) return;
+        if (!AllVoidConfig.featuresEnabled(generator)) return;
 
         BlockPos treasurePos = new BlockPos(chunkPos.getMiddleBlockX(), level.getMinBuildHeight() + 1, chunkPos.getMiddleBlockZ());
         if (!writableArea.isInside(treasurePos)) return;

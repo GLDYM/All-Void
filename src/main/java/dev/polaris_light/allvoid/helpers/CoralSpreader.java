@@ -25,7 +25,8 @@ public final class CoralSpreader {
     private static final double TARGET_CONTINENTALNESS = -0.3D;
 
     public static void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!AllVoidConfig.SPREADING_CORAL.get() || level.dimension() != Level.OVERWORLD
+        if (!AllVoidConfig.spreadingCoral || !AllVoidConfig.featuresEnabled(level)
+                || level.dimension() != Level.OVERWORLD
                 || !Blocks.TUBE_CORAL_BLOCK.defaultBlockState().canSurvive(level, pos)) {
             return;
         }

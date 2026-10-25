@@ -29,7 +29,9 @@ abstract class PortalForcerMixin {
             Direction.Axis axis,
             CallbackInfoReturnable<Optional<BlockUtil.FoundRectangle>> callback
     ) {
-        if (!AllVoidConfig.RENEWABLE_NETHERRACK.get() || callback.getReturnValue().isEmpty()) {
+        if (!AllVoidConfig.renewableNetherrack
+                || !AllVoidConfig.featuresEnabled(level)
+                || callback.getReturnValue().isEmpty()) {
             return;
         }
 

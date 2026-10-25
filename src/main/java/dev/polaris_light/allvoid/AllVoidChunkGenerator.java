@@ -23,14 +23,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Fallable;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * A noise generator which keeps the original biome source and settings, but
- * omits terrain filling. Structures and biome decoration still use the normal
- * generator pipeline. Empty heightmaps are used in the Overworld and Nether
- * so ordinary surface decorations cannot turn the void into a layer of trees
- * or ores. The End keeps its original noise heights because return gateways
- * use {@code WORLD_SURFACE_WG}; its platform and spikes are fixed/end features.
- */
 public final class AllVoidChunkGenerator extends NoiseBasedChunkGenerator {
     public static final MapCodec<AllVoidChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BiomeSource.CODEC.fieldOf("biome_source").forGetter(AllVoidChunkGenerator::getBiomeSource),

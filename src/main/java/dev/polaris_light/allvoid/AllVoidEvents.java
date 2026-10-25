@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -28,19 +30,22 @@ import net.neoforged.neoforge.event.village.WandererTradesEvent;
 
 /** Server-side event hooks for the Carpet-style renewable resources. */
 public final class AllVoidEvents {
-    public void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+    public AllVoidEvents() {
+    }
+
+    public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         event.register(
                 EntityType.PIGLIN_BRUTE,
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 AllVoidEvents::canSpawnPiglinBrute,
-                RegisterSpawnPlacementsEvent.Operation.REPLACE
+                RegisterSpawnPlacementsEvent.Operation.OR
         );
     }
 
     @SubscribeEvent
     public void addWanderingTraderTrades(WandererTradesEvent event) {
-        if (!AllVoidConfig.TALL_FLOWERS_FROM_WANDERING_TRADER.get()) {
+        if (!AllVoidConfig.tallFlowersFromWanderingTrader) {
             return;
         }
         for (var flower : new ItemStack[]{
@@ -49,16 +54,26 @@ public final class AllVoidEvents {
                 new ItemStack(Items.PEONY),
                 new ItemStack(Items.SUNFLOWER)
         }) {
-            event.getGenericTrades().add(new BasicItemListing(1, flower, 12, 1, 0.05F));
+            event.getGenericTrades().add(new BasicItemListing(1, flower, 12, 1, 0.05F) {
+                @Override
+                public MerchantOffer getOffer(Entity trader, RandomSource random) {
+                    if (!(trader.level() instanceof ServerLevel level)
+                            || !AllVoidConfig.featuresEnabled(level)) {
+                        return null;
+                    }
+                    return super.getOffer(trader, random);
+                }
+            });
         }
     }
 
     @SubscribeEvent
     public void convertGuardian(EntityStruckByLightningEvent event) {
-        if (!AllVoidConfig.RENEWABLE_SPONGES.get()
+        if (!AllVoidConfig.renewableSponges
                 || !(event.getEntity() instanceof Guardian guardian)
                 || guardian instanceof ElderGuardian
-                || !(guardian.level() instanceof ServerLevel level)) {
+                || !(guardian.level() instanceof ServerLevel level)
+                || !AllVoidConfig.featuresEnabled(level)) {
             return;
         }
 
@@ -85,7 +100,8 @@ public final class AllVoidEvents {
             BlockPos pos,
             RandomSource random
     ) {
-        if (!AllVoidConfig.PIGLINS_SPAWNING_IN_BASTIONS.get()
+        if (!AllVoidConfig.piglinsSpawningInBastions
+                || !AllVoidConfig.featuresEnabled(level.getLevel().getChunkSource().getGenerator())
                 || level.getLevel().dimension() != Level.NETHER) {
             return false;
         }

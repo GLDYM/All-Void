@@ -1,3 +1,16 @@
 {
-  "generator.allvoid.all_void": "\u5168\u865a\u7a7a"
+  "generator.allvoid.all_void": "\u5168\u865a\u7a7a",
+  "pack.allvoid.all_void.name": "\u5168\u865a\u7a7a\u7279\u6027",
+  "pack.allvoid.all_void.description": "\u5168\u865a\u7a7a\u4e16\u754c\u7684\u53ef\u9009\u6570\u636e",
+  "allvoid.config.features": "\u5168\u865a\u7a7a\u7279\u6027",
+  "allvoid.config.features.allow_features_in_non_void_worlds": "\u5141\u8bb8\u5728\u975e\u865a\u7a7a\u4e16\u754c\u4e2d\u542f\u7528\u7279\u6027",
+  "allvoid.config.features.renewable_netherrack": "\u53ef\u518d\u751f\u7684\u5730\u72f1\u754c\u5ca9",
+  "allvoid.config.features.tall_flowers_from_wandering_trader": "\u6d41\u6d6a\u5546\u4eba\u51fa\u552e\u9ad8\u5927\u82b1\u6735",
+  "allvoid.config.features.lightning_electrifies_vines": "\u95ea\u7535\u4f7f\u85e4\u8513\u5e26\u7535",
+  "allvoid.config.features.gateways_spawn_chorus": "\u7ec8\u672b\u4f20\u9001\u95e8\u751f\u6210\u7d2b\u679c",
+  "allvoid.config.features.huge_mushrooms_spread_mycelium": "\u5de8\u578b\u8611\u83c7\u6269\u6563\u83cc\u4e1d\u5ca9",
+  "allvoid.config.features.spreading_small_dripleaves": "\u5c0f\u578b\u6ef4\u6c34\u53f6\u6269\u6563",
+  "allvoid.config.features.spreading_coral": "\u73ca\u745a\u6269\u6563",
+  "allvoid.config.features.renewable_sponges": "\u53ef\u518d\u751f\u6d77\u7ef5",
+  "allvoid.config.features.piglins_spawning_in_bastions": "\u5821\u5792\u4e2d\u751f\u6210\u732a\u7075\u86ee\u5175"
 }

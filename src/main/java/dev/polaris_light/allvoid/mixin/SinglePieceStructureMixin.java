@@ -1,6 +1,6 @@
 package dev.polaris_light.allvoid.mixin;
 
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.world.level.levelgen.structure.SinglePieceStructure;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.structures.DesertPyramidStructure;
@@ -20,7 +20,7 @@ abstract class SinglePieceStructureMixin {
     )
     private int allvoid$desertPyramidHeight(Structure.GenerationContext context, int width, int depth) {
         if ((Object) this instanceof DesertPyramidStructure
-                && context.chunkGenerator() instanceof AllVoidChunkGenerator) {
+                && AllVoidConfig.featuresEnabled(context.chunkGenerator())) {
             // SinglePieceStructure rejects locations below sea level before it creates the piece.
             return context.chunkGenerator().getSeaLevel();
         }
@@ -33,7 +33,7 @@ abstract class SinglePieceStructureMixin {
             CallbackInfoReturnable<Optional<Structure.GenerationStub>> callback
     ) {
         if (!((Object) this instanceof DesertPyramidStructure)
-                || !(context.chunkGenerator() instanceof AllVoidChunkGenerator)) {
+                || !AllVoidConfig.featuresEnabled(context.chunkGenerator())) {
             return;
         }
 

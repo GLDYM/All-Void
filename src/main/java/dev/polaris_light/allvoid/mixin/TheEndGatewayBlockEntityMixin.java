@@ -26,7 +26,8 @@ abstract class TheEndGatewayBlockEntityMixin {
             BlockPos origin
     ) {
         boolean placed = feature.place(level, generator, random, origin);
-        if (placed && AllVoidConfig.GATEWAYS_SPAWN_CHORUS.get()) {
+        if (placed && AllVoidConfig.gatewaysSpawnChorus
+                && AllVoidConfig.featuresEnabled(generator)) {
             placeChorus(level, origin, random);
         }
         return placed;

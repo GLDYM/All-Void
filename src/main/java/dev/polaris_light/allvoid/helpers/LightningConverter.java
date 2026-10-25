@@ -3,6 +3,7 @@ package dev.polaris_light.allvoid.helpers;
 import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GlowLichenBlock;
@@ -12,7 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class LightningConverter {
     public static void strike(Level level, BlockPos strikePos) {
-        if (!AllVoidConfig.LIGHTNING_ELECTRIFIES_VINES.get()) {
+        if (!AllVoidConfig.lightningElectrifiesVines
+                || !(level instanceof ServerLevel serverLevel)
+                || !AllVoidConfig.featuresEnabled(serverLevel)) {
             return;
         }
 

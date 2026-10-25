@@ -1,3 +1,16 @@
 {
-  "generator.allvoid.all_void": "All Void"
+  "generator.allvoid.all_void": "All Void",
+  "pack.allvoid.all_void.name": "All Void features",
+  "pack.allvoid.all_void.description": "Optional data for All Void worlds",
+  "allvoid.config.features": "All Void Features",
+  "allvoid.config.features.allow_features_in_non_void_worlds": "Allow features in non-void worlds",
+  "allvoid.config.features.renewable_netherrack": "Renewable netherrack",
+  "allvoid.config.features.tall_flowers_from_wandering_trader": "Tall flowers from wandering traders",
+  "allvoid.config.features.lightning_electrifies_vines": "Lightning electrifies vines",
+  "allvoid.config.features.gateways_spawn_chorus": "Gateways spawn chorus",
+  "allvoid.config.features.huge_mushrooms_spread_mycelium": "Huge mushrooms spread mycelium",
+  "allvoid.config.features.spreading_small_dripleaves": "Spreading small dripleaves",
+  "allvoid.config.features.spreading_coral": "Spreading coral",
+  "allvoid.config.features.renewable_sponges": "Renewable sponges",
+  "allvoid.config.features.piglins_spawning_in_bastions": "Piglin brutes spawn in bastions"
 }

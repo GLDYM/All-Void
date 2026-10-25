@@ -1,6 +1,6 @@
 package dev.polaris_light.allvoid.mixin;
 
-import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import dev.polaris_light.allvoid.config.AllVoidConfig;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.structure.ScatteredFeaturePiece;
@@ -25,7 +25,7 @@ abstract class ScatteredFeaturePieceMixin {
     ) {
         if (!((Object) this instanceof DesertPyramidPiece)
                 || !(level instanceof WorldGenLevel worldGenLevel)
-                || !(worldGenLevel.getLevel().getChunkSource().getGenerator() instanceof AllVoidChunkGenerator)
+                || !AllVoidConfig.featuresEnabled(worldGenLevel.getLevel().getChunkSource().getGenerator())
                 || this.heightPosition >= 0) {
             return;
         }
