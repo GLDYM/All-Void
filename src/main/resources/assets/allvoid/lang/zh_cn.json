@@ -11,6 +11,9 @@
   "allvoid.config.features.huge_mushrooms_spread_mycelium": "\u5de8\u578b\u8611\u83c7\u6269\u6563\u83cc\u4e1d\u5ca9",
   "allvoid.config.features.spreading_small_dripleaves": "\u5c0f\u578b\u6ef4\u6c34\u53f6\u6269\u6563",
   "allvoid.config.features.spreading_coral": "\u73ca\u745a\u6269\u6563",
+  "allvoid.config.features.renewable_coral": "\u53ef\u518d\u751f\u73ca\u745a",
+  "allvoid.config.features.renewable_deepslate": "\u53ef\u518d\u751f\u6df1\u677f\u5ca9",
+  "allvoid.config.features.pale_blossom_creaking_heart": "\u82cd\u767d\u82b1\u4e0e\u560e\u9e1f\u5fc3",
   "allvoid.config.features.renewable_sponges": "\u53ef\u518d\u751f\u6d77\u7ef5",
   "allvoid.config.features.piglins_spawning_in_bastions": "\u5821\u5792\u4e2d\u751f\u6210\u732a\u7075\u86ee\u5175"
 }

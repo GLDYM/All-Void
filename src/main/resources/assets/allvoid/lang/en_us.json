@@ -11,6 +11,9 @@
   "allvoid.config.features.huge_mushrooms_spread_mycelium": "Huge mushrooms spread mycelium",
   "allvoid.config.features.spreading_small_dripleaves": "Spreading small dripleaves",
   "allvoid.config.features.spreading_coral": "Spreading coral",
+  "allvoid.config.features.renewable_coral": "Renewable coral",
+  "allvoid.config.features.renewable_deepslate": "Renewable deepslate",
+  "allvoid.config.features.pale_blossom_creaking_heart": "Pale blossom creaking heart",
   "allvoid.config.features.renewable_sponges": "Renewable sponges",
   "allvoid.config.features.piglins_spawning_in_bastions": "Piglin brutes spawn in bastions"
 }

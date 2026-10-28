@@ -1,6 +1,7 @@
 package dev.polaris_light.allvoid.config;
 
 import dev.polaris_light.allvoid.AllVoidChunkGenerator;
+import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -8,6 +9,12 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 
 /** Common settings for the features added by All Void. */
 public final class AllVoidConfig {
+    public enum RenewableCoralMode {
+        FALSE,
+        TRUE,
+        EXPANDED
+    }
+
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.BooleanValue ALLOW_FEATURES_IN_NON_VOID_WORLDS;
@@ -18,7 +25,10 @@ public final class AllVoidConfig {
     public static final ModConfigSpec.BooleanValue HUGE_MUSHROOMS_SPREAD_MYCELIUM;
     public static final ModConfigSpec.BooleanValue SPREADING_SMALL_DRIPLEAVES;
     public static final ModConfigSpec.BooleanValue SPREADING_CORAL;
+    public static final ModConfigSpec.EnumValue<RenewableCoralMode> RENEWABLE_CORAL;
+    public static final ModConfigSpec.BooleanValue RENEWABLE_DEEPSLATE;
     public static final ModConfigSpec.BooleanValue RENEWABLE_SPONGES;
+    public static final ModConfigSpec.BooleanValue PALE_BLOSSOM_CREAKING_HEART;
     public static final ModConfigSpec.BooleanValue PIGLINS_SPAWNING_IN_BASTIONS;
 
     public static volatile boolean allowFeaturesInNonVoidWorlds;
@@ -29,7 +39,10 @@ public final class AllVoidConfig {
     public static volatile boolean hugeMushroomsSpreadMycelium = true;
     public static volatile boolean spreadingSmallDripleaves = true;
     public static volatile boolean spreadingCoral;
+    public static volatile RenewableCoralMode renewableCoral = RenewableCoralMode.TRUE;
+    public static volatile boolean renewableDeepslate = true;
     public static volatile boolean renewableSponges = true;
+    public static volatile boolean paleBlossomCreakingHeart = true;
     public static volatile boolean piglinsSpawningInBastions = true;
 
     static {
@@ -68,10 +81,24 @@ public final class AllVoidConfig {
                 .comment("Allow calcite surrounded by coral to convert into coral blocks.")
                 .translation("allvoid.config.features.spreading_coral")
                 .define("spreadingCoral", true);
+        RENEWABLE_CORAL = builder
+                .comment("Grow coral structures from coral plants with bone meal.",
+                        "EXPANDED also allows coral fans to be fertilized.")
+                .translation("allvoid.config.features.renewable_coral")
+                .defineEnum("renewableCoral", RenewableCoralMode.TRUE);
+        RENEWABLE_DEEPSLATE = builder
+                .comment("Generate deepslate and cobbled deepslate instead of stone below Y=0.")
+                .translation("allvoid.config.features.renewable_deepslate")
+                .define("renewableDeepslate", true);
         RENEWABLE_SPONGES = builder
                 .comment("Turn guardians struck by lightning into elder guardians.")
                 .translation("allvoid.config.features.renewable_sponges")
                 .define("renewableSponges", true);
+        PALE_BLOSSOM_CREAKING_HEART = builder
+                .comment("Allow pale oak saplings grown near an open eyeblossom in a pale garden",
+                        "to produce a creaking heart. Requires Vanilla Backport.")
+                .translation("allvoid.config.features.pale_blossom_creaking_heart")
+                .define("paleBlossomCreakingHeart", true);
         PIGLINS_SPAWNING_IN_BASTIONS = builder
                 .comment("Allow piglin brutes to naturally spawn inside bastion remnants.")
                 .translation("allvoid.config.features.piglins_spawning_in_bastions")
@@ -103,7 +130,10 @@ public final class AllVoidConfig {
         hugeMushroomsSpreadMycelium = HUGE_MUSHROOMS_SPREAD_MYCELIUM.get();
         spreadingSmallDripleaves = SPREADING_SMALL_DRIPLEAVES.get();
         spreadingCoral = SPREADING_CORAL.get();
+        renewableCoral = RENEWABLE_CORAL.get();
+        renewableDeepslate = RENEWABLE_DEEPSLATE.get();
         renewableSponges = RENEWABLE_SPONGES.get();
+        paleBlossomCreakingHeart = PALE_BLOSSOM_CREAKING_HEART.get();
         piglinsSpawningInBastions = PIGLINS_SPAWNING_IN_BASTIONS.get();
     }
 
@@ -114,6 +144,10 @@ public final class AllVoidConfig {
 
     public static boolean featuresEnabled(ServerLevel level) {
         return featuresEnabled(level.getChunkSource().getGenerator());
+    }
+
+    public static boolean featuresEnabled(Level level) {
+        return level instanceof ServerLevel serverLevel && featuresEnabled(serverLevel);
     }
 
     private AllVoidConfig() {
